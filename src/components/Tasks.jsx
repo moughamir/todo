@@ -1,10 +1,10 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
 import { connect } from 'react-redux'
-import { FetchTodos, FilterTodos } from '../store/actions'
+import { FetchTodos, ToggleTaskState } from '../store/actions'
 import TaskList from './TaskList'
 import Filter from './Filters'
-import Search from './Search'
+// import Search from './Search'
 
 class Tasks extends React.Component {
   componentDidMount () {
@@ -13,7 +13,10 @@ class Tasks extends React.Component {
 
   render () {
     const {
-      loading, tags, count, visible, handleFilter,
+      loading,
+      tags,
+      count,
+      visible,
       visibleItems
     } = this.props
 
@@ -27,13 +30,11 @@ class Tasks extends React.Component {
               <header className='card-header'>
                 <h3 className='p-2 text-center'>Todo list</h3>
               </header>
-              <Search dataArray={visibleItems} />
+              {/* <Search dataArray={visibleItems} /> */}
               <hr />
               <Filter
                 tags={tags}
                 count={count}
-                activeTab={visible}
-                handleClick={(e) => handleFilter(e)}
               />
               <article className='card-body'>
                 <TaskList items={visibleItems} vibile={visible} />
@@ -61,13 +62,12 @@ const mapStateToProps = state => ({
   todos: state.tasks,
   tags: state.tags,
   count: state.count,
-  visible: state.visible,
   visibleItems: state.visibleItems
 })
 
 const mapDispatchToProps = dispatch => ({
   InitApp: () => dispatch(FetchTodos()),
-  handleFilter: (targetTag) => dispatch(FilterTodos(targetTag))
+  toggleTask: (e, t) => dispatch(ToggleTaskState(e, t))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tasks)
