@@ -1,10 +1,14 @@
 import React from "react";
+import Task from "./components/Task";
 
 const Tasks = () => (
   <React.Fragment>
     <h3 className="p-2">Todo list</h3>
     <hr />
+
     <ol>
+      <Task id="1" title="uncompleted Task" isCompleted={false} />
+      <Task id="1" title="completed todo" isCompleted={true} />
       <li>
         Get todo list from:{" "}
         <code>https://jsonplaceholder.typicode.com/todos/</code> and put them
