@@ -1,10 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import { Input } from './Input.jsx'
 import { Button } from './Button.jsx'
+import Link from './Link'
+import { ToggleTaskState } from '../store/actions.js'
 
 const Task = props => {
   const { id, title, isCompleted } = props
+  const dispatch = useDispatch()
   const inputProps = {
     type: 'checkbox',
     checked: isCompleted,
@@ -13,13 +17,14 @@ const Task = props => {
 
   return (
     <>
-      <li key={id}>
-        {title}
-        <span className='form-group'>
+      <li key={id} className='d-flex c-hand'>
+        <Link destination={id}> {title}</Link>
+        <div className='divider-vert' />
+        <span className='form-group mx-2 d-inline-flex'>
           <label className='form-checkbox form-inline'>
             <Input
               config={inputProps}
-              handleInputChange={e => console.log(e.target.value)}
+              handleInputChange={() => dispatch(ToggleTaskState(id))}
             />
             {/* <input
               type='checkbox' checked={isCompleted}
@@ -31,16 +36,17 @@ const Task = props => {
             */}
             <i className='form-icon' />
           </label>
+          <Button
+            handleButtonClick={e => console.log(e.target)}
+            icon='icon-edit'
+          />
+          <Button
+            handleButtonClick={e => console.log(e.target)}
+            icon='icon-delete'
+          />
         </span>
-        <Button
-          handleButtonClick={e => console.log(e.target)}
-          icon='icon-edit'
-        />
-        <Button
-          handleButtonClick={e => console.log(e.target)}
-          icon='icon-delete'
-        />
       </li>
+      <div className='divider' />
     </>
   )
 }

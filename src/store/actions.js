@@ -53,9 +53,9 @@ function SearchTerms (e, term) {
   }
 }
 
-function ToggleTaskState (event, taskId) {
+function ToggleTaskState (taskId) {
   return function (dispatch) {
-    dispatch({ type: 'TOGGLE_TASK_STATE' })
+    dispatch({ type: TodoQuery.TOGGLE_TODO_STATE, taskId })
   }
 }
 

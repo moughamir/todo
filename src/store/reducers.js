@@ -61,6 +61,11 @@ export const TodoReducers = (state = initialState, action = {}) => {
           }
         ]
       }
+    case TodoQuery.TOGGLE_TODO_STATE:
+      return {
+        ...state,
+        task: state.tasks.map(task => (task.id === data) ? { ...task, completed: !task.completed } : task)
+      }
     default:
       return state
   }
