@@ -1,7 +1,6 @@
-import React from 'react'
-import Autosuggest from 'react-autosuggest'
+import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { SearchTerms } from '../store/actions'
 
 const getSuggestions = (value, dataArray) => {
@@ -14,20 +13,8 @@ const getSuggestions = (value, dataArray) => {
   })
 }
 const getSuggestionValue = suggestion => suggestion.title
-const renderSuggestion = suggestion => (
-  <div>
-    {suggestion.title}
-  </div>
-)
-class Search extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      dataArray: this.props.dataArray,
-      fieldValues: '',
-      filterdTerms: []
-    }
-  }
+
+const Search = (props) => {
 
   onChange = (event, { newValue }) => {
     this.setState({
@@ -63,14 +50,11 @@ class Search extends React.Component {
     }
     return (
       <>
-        <Autosuggest
-          suggestions={filterdTerms}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          getSuggestionValue={getSuggestionValue}
-          renderSuggestion={renderSuggestion}
-          inputProps={inputProps}
-          renderInputComponent={renderInputComponent}
+        <input
+          className='form-input'
+          onChange={(e) => props.handleSearch(e, props.dataArray)}
+          value={props.fieldValues}
+          {...inputProps}
         />
       </>
     )
