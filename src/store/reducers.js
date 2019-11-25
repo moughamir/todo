@@ -43,6 +43,11 @@ export const TodoReducers = (state = initialState, action = {}) => {
         visibleItems: state.tasks
 
       }
+    case TodoQuery.SEARCH:
+      return {
+        ...state,
+        visibleItems: state.tasks.filter(val => val.title.includes(data))
+      }
     default:
       return state
   }

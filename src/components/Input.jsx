@@ -2,27 +2,21 @@ import React, { useState } from 'react'
 // import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
-export const Input = props => {
+export const Input = React.forwardRef((props, inputRef) => {
   const { config } = props
   const [checked = config.checked, setInputState] = useState()
-  // const checkBoxState = useSelector(state => state.tasks[config.taskId])
-
-  // console.log(checked)
-  let input
   return (
     <>
       <input
         {...config}
-        ref={node => {
-          input = node
-        }}
+        ref={inputRef}
         checked={checked}
         onChange={() => setInputState(!checked)}
       />
     </>
   )
 }
-
+)
 Input.propTypes = {
   config: PropTypes.object,
   handleInputChange: PropTypes.func

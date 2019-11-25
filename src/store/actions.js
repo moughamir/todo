@@ -46,42 +46,22 @@ function FilterTodos (todoState) {
   }
 }
 
-const onChange = (e, terms) => {
-  const fieldValues = e.currentTarget.value
-  const newTerms = []
-  newTerms.push(
-    terms.find(
-      x =>
-        x.title ===
-        terms
-          .map(t => t.title)
-          .filter(
-            t => t.toLowerCase().indexOf(fieldValues.toLocaleLowerCase()) > -1
-          )
-          .toString()
-    )
-  )
-  console.log(fieldValues, newTerms)
-  return newTerms
-}
-
-function SearchTerms (event, array) {
+function SearchTerms (e, term) {
+  e.preventDefault()
   return function (dispatch) {
-    console.info(onChange(event, array))
-    dispatch({ type: 'HELLO', data: onChange(event, array) })
+    dispatch({ type: TodoQuery.SEARCH, data: term })
   }
 }
 
 function ToggleTaskState (event, taskId) {
   return function (dispatch) {
-    console.log(event, taskId)
     dispatch({ type: 'TOGGLE_TASK_STATE' })
   }
 }
 
 function DeleteTask (event, taskId) {
+  event.preventDefault()
   return function (dispatch) {
-    console.log(event, taskId)
     dispatch({ type: 'DELETE' })
   }
 }

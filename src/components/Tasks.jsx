@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { FetchTodos, ToggleTaskState } from '../store/actions'
 import TaskList from './TaskList'
 import Filter from './Filters'
-// import Search from './Search'
+import Search from './Search'
 
 class Tasks extends React.Component {
   componentDidMount () {
@@ -30,7 +30,7 @@ class Tasks extends React.Component {
               <header className='card-header'>
                 <h3 className='p-2 text-center'>Todo list</h3>
               </header>
-              {/* <Search dataArray={visibleItems} /> */}
+              <Search dataArray={visibleItems} />
               <hr />
               <Filter
                 tags={tags}
