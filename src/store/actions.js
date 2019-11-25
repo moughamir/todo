@@ -60,26 +60,9 @@ function ToggleTaskState (event, taskId) {
 }
 
 function AddTask (e, content) {
-  const postData = {
-    method: 'POST',
-    body: JSON.stringify({
-      ...content
-    }),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8'
-    }
-  }
   e.preventDefault()
   return function (dispatch) {
-    return fetch(dataSource, postData)
-      .then(res => res.json())
-      .then(json =>
-        dispatch({ type: TodoQuery.ADD_TODO_TASK, data: json })
-      )
-      .catch(error => dispatch({
-        type: TodoQuery.ADD_TODO_TASK_FAILED,
-        error
-      }))
+    dispatch({ type: TodoQuery.ADD_TODO_TASK, data: content })
   }
 }
 

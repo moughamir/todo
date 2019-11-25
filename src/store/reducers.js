@@ -48,6 +48,19 @@ export const TodoReducers = (state = initialState, action = {}) => {
         ...state,
         visibleItems: state.tasks.filter(val => val.title.includes(data))
       }
+    case TodoQuery.ADD_TODO_TASK:
+      return {
+        ...state,
+        tasks: [
+          ...state.tasks,
+          {
+            userId: 1,
+            id: ++state.tasks.length,
+            title: data,
+            completed: false
+          }
+        ]
+      }
     default:
       return state
   }
