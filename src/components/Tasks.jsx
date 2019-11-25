@@ -5,6 +5,7 @@ import { FetchTodos, ToggleTaskState } from '../store/actions'
 import TaskList from './TaskList'
 import Filter from './Filters'
 import Search from './Search'
+import AddItem from './AddComponent'
 
 class Tasks extends React.Component {
   componentDidMount () {
@@ -39,6 +40,8 @@ class Tasks extends React.Component {
               <article className='card-body'>
                 <TaskList items={visibleItems} vibile={visible} />
               </article>
+
+              <AddItem />
             </form>
           </>
         )}

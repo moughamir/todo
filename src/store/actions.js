@@ -16,7 +16,7 @@ function FetchTodos () {
       .catch(error =>
         dispatch({
           type: TodoQuery.FETCH_TODO_LIST_FAILED,
-          error: error
+          error
         })
       )
   }
@@ -59,14 +59,76 @@ function ToggleTaskState (event, taskId) {
   }
 }
 
-function DeleteTask (event, taskId) {
-  event.preventDefault()
+function AddTask (e, content) {
+  const postData = {
+    method: 'POST',
+    body: JSON.stringify({
+      ...content
+    }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    }
+  }
+  e.preventDefault()
   return function (dispatch) {
-    dispatch({ type: 'DELETE' })
+    return fetch(dataSource, postData)
+      .then(res => res.json())
+      .then(json =>
+        dispatch({ type: TodoQuery.ADD_TODO_TASK, data: json })
+      )
+      .catch(error => dispatch({
+        type: TodoQuery.ADD_TODO_TASK_FAILED,
+        error
+      }))
+  }
+}
+
+function EditTask (e, content) {
+  const postData = {
+    method: 'PUT',
+    body: JSON.stringify({
+      ...content
+    }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    }
+  }
+  e.preventDefault()
+  return function (dispatch) {
+    return fetch(dataSource, postData)
+      .then(res => res.json())
+      .then(json =>
+        dispatch({ type: TodoQuery.EDIT_TODO_TASK, data: json })
+      )
+      .catch(error => dispatch({
+        type: TodoQuery.EDIT_TODO_TASK_FAILED,
+        error
+      }))
+  }
+}
+
+function DeleteTask (e, content) {
+  const deleteData = {
+    method: 'DELETE'
+  }
+  const target = `${dataSource}/${content.id}`
+  e.preventDefault()
+  return function (dispatch) {
+    return fetch(target, deleteData)
+      .then(res => res.json())
+      .then(json =>
+        dispatch({ type: TodoQuery.DELETE_TODO_TASK, data: json })
+      )
+      .catch(error => dispatch({
+        type: TodoQuery.DELETE_TODO_TASK_FAILED,
+        error
+      }))
   }
 }
 
 export {
+  AddTask,
+  EditTask,
   DeleteTask,
   FetchTodos,
   FilterTodos,
