@@ -1,16 +1,21 @@
-import { FetchTodo } from "./actions";
+import { TodoQuery } from '../constants'
 
 const initialState = {
+  loading: true,
   tasks: []
-};
-export const TodoReducers = (state = initialState, action) => {
-  switch (action.type) {
-    case FetchTodo:
+}
+
+export const TodoReducers = (state = initialState, action = {}) => {
+  const { data, type } = action
+  switch (type) {
+    case TodoQuery.FETCH_TODO_LIST:
       return {
-        tasks: []
-      };
+        ...state,
+        loading: false,
+        tasks: data
+      }
 
     default:
-      return state;
+      return state
   }
-};
+}

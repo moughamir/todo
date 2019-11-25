@@ -1,12 +1,20 @@
-import  React from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const Task = (props) => {
-  let {id, title, isCompleted} = props
+  const { id, title, isCompleted } = props
   return (
     <>
-    <li key={id}>{title} {isCompleted ? "✅" : "⬜"}</li>
+      <li key={id}>{title} {isCompleted ? 'true' : 'false'} {props.child}</li>
     </>
   )
 }
 
-export default Task;
+Task.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  isCompleted: PropTypes.bool,
+  child: PropTypes.element
+}
+
+export default Task
