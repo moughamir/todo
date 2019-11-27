@@ -22,19 +22,26 @@ class Tasks extends React.Component {
           <div className='loading loading-lg' />
         ) : (
           <>
-            <header className='card-header'>
-              <h3 className='p-2 text-center'>Todo list</h3>
-            </header>
-            <hr />
-            <Filter
-              tags={tags}
-              count={count}
-              activeTab={visible}
-              handleClick={(e) => handleFilter(e)}
-            />
-            <article className='card-body'>
-              <TaskList items={visibleItems} vibile={visible} />
-            </article>
+            <form>
+              <header className='card-header'>
+                <h3 className='p-2 text-center'>Todo list</h3>
+              </header>
+              <input
+                className='form-input'
+                type='text' placeholder='search task...'
+                onChange={(e) => console.log(e.target.value)}
+              />
+              <hr />
+              <Filter
+                tags={tags}
+                count={count}
+                activeTab={visible}
+                handleClick={(e) => handleFilter(e)}
+              />
+              <article className='card-body'>
+                <TaskList items={visibleItems} vibile={visible} />
+              </article>
+            </form>
           </>
         )}
       </section>
