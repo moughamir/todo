@@ -41,3 +41,23 @@ export function FilterTodos (todoState) {
     }
   }
 }
+
+const onChange = (e, terms) => {
+  const fieldValues = e.currentTarget.value
+  const newTerms = []
+  newTerms.push(
+    terms.find(x => x.title === terms.map(t => t.title)
+      .filter(t => t.toLowerCase()
+        .indexOf(fieldValues.toLocaleLowerCase()) > -1)
+      .toString()
+    ))
+  console.log(fieldValues, newTerms)
+  return newTerms
+}
+
+export function SearchTerms (event, array) {
+  return function (dispatch) {
+    console.info(onChange(event, array))
+    dispatch({ type: 'HELLO', data: onChange(event, array) })
+  }
+}
