@@ -15,3 +15,9 @@ export const TaskFilter = {
   SHOW_DONE: 'SHOW_DONE',
   SHOW_ACTIVE: 'SHOW_ACTIVE'
 }
+
+export const FilterTags = {
+  all: 'all',
+  active: 'active',
+  done: 'done'
+}

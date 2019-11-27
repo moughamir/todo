@@ -5,7 +5,7 @@ const Task = (props) => {
   const { id, title, isCompleted } = props
   return (
     <>
-      <li key={id}>{title} {isCompleted ? 'true' : 'false'} {props.child}</li>
+      <li key={id}>{title} <b>{isCompleted ? 'true' : 'false'}</b></li>
     </>
   )
 }

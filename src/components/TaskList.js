@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import Task from './Task'
 
 const TaskList = (props) => {
-  const { items = [] } = props
+  const { items } = props
+
   return (
     <ul>
       {
@@ -12,7 +13,7 @@ const TaskList = (props) => {
             <Task
               id={task.id}
               title={task.title}
-              isCompleted={task.isCompleted}
+              isCompleted={task.completed}
             />
           </React.Fragment>
         ))

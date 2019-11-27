@@ -1,38 +1,9 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
 import { connect } from 'react-redux'
+import { FetchTodos, FilterTodos } from '../store/actions'
 import TaskList from './TaskList'
-import { FetchTodos } from '../store/actions'
-
-// const TodoItems = [
-//   {
-//     id: 1,
-//     title:
-//       'Get todo list from https://jsonplaceholder.typicode.com/todos/ and put them (first 30) in redux store.',
-//     completed: false
-//   },
-//   { id: 2, title: 'Show todo list.', completed: false },
-//   {
-//     id: 3,
-//     title: 'Add filters for: All (count) |Active (count) | Done (count) (Radio).',
-//     completed: false
-//   },
-//   { id: 4, title: 'Search for todos.', completed: false },
-//   { id: 5, title: 'Add a new todo.', completed: false },
-//   {
-//     id: 6,
-//     title: 'Create a route to show a specific Todo from the store.',
-//     completed: false
-//   },
-//   { id: 7, title: 'Edit a todo in the store.', completed: false },
-//   { id: 8, title: 'Remove a todo from the store.', completed: false },
-//   {
-//     id: 9,
-//     title: 'Toggle completed for one todo (Checkbox).',
-//     completed: false
-//   },
-//   { id: 10, title: 'Toggle completed for all todos (Button).', completed: false }
-// ]
+import Filter from './Filters'
 
 class Tasks extends React.Component {
   componentDidMount () {
@@ -40,21 +11,32 @@ class Tasks extends React.Component {
   }
 
   render () {
-    const { loading, todos } = this.props
+    const {
+      loading, tags, count, visible, handleFilter,
+      visibleItems
+    } = this.props
 
     return (
       <section className='card'>
-        <header className='card-header'>
-          <h3 className='p-2 text-center'>Todo list</h3>
-        </header>
-        <hr />
-        <article className='card-body'>
-          {
-            loading
-              ? <div className='loading loading-lg' />
-              : <TaskList items={todos} />
-          }
-        </article>
+        {loading ? (
+          <div className='loading loading-lg' />
+        ) : (
+          <>
+            <header className='card-header'>
+              <h3 className='p-2 text-center'>Todo list</h3>
+            </header>
+            <hr />
+            <Filter
+              tags={tags}
+              count={count}
+              activeTab={visible}
+              handleClick={(e) => handleFilter(e)}
+            />
+            <article className='card-body'>
+              <TaskList items={visibleItems} vibile={visible} />
+            </article>
+          </>
+        )}
       </section>
     )
   }
@@ -63,15 +45,25 @@ class Tasks extends React.Component {
 Tasks.propTypes = {
   loading: PropTypes.bool,
   todos: PropTypes.array,
+  visibleItems: PropTypes.array,
+  tags: PropTypes.array,
+  count: PropTypes.object,
+  visible: PropTypes.string,
+  handleFilter: PropTypes.func,
   InitApp: PropTypes.func
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
+  loading: state.loading,
   todos: state.tasks,
-  loading: state.loading
+  tags: state.tags,
+  count: state.count,
+  visible: state.visible,
+  visibleItems: state.visibleItems
 })
 
 const mapDispatchToProps = dispatch => ({
-  InitApp: () => dispatch(FetchTodos())
+  InitApp: () => dispatch(FetchTodos()),
+  handleFilter: (targetTag) => dispatch(FilterTodos(targetTag))
 })
 
-export default (connect(mapStateToProps, mapDispatchToProps)(Tasks))
+export default connect(mapStateToProps, mapDispatchToProps)(Tasks)
