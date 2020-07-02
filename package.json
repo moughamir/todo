@@ -13,7 +13,7 @@
     "react-scripts": "3.2.0",
     "redux": "4.0.4",
     "redux-thunk": "^2.3.0",
-    "spectre.css": "0.5.8"
+    "spectre.css": "0.5.9"
   },
   "devDependencies": {
     "eslint": "^6.7.0",
